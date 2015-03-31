@@ -1,0 +1,23 @@
+{
+    "name": "olcs/olcs-selfserve",
+    "description": "OLCS Self Service Web Site",
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/MajorCaiger/phpcov.git"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "squizlabs/php_codesniffer": "~1.5.3",
+        "phpunit/phpunit": "4.*",
+        "sebastian/diff": "dev-master",
+        "phpunit/phpcov": "dev-master"
+    },
+    "config": {
+        "preferred-install": "dist",
+        "github-oauth": {
+            "github.com": "9d28c36d14775b5d8c4a5ffeee6172eecbd8c9f4"
+        }
+    }
+}
