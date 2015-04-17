@@ -12,12 +12,18 @@
         "squizlabs/php_codesniffer": "~1.5.3",
         "phpunit/phpunit": "4.*",
         "sebastian/diff": "dev-master",
-        "phpunit/phpcov": "dev-master"
+        "phpunit/phpcov": "dev-master",
+        "phpmd/phpmd": "~2.2.2"
     },
     "config": {
         "preferred-install": "dist",
         "github-oauth": {
             "github.com": "9d28c36d14775b5d8c4a5ffeee6172eecbd8c9f4"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Devtools\\": "src/"
         }
     }
 }

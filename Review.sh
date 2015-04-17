@@ -29,6 +29,8 @@ fi
 PHPCS="${DIR}/vendor/bin/phpcs"
 PHPUNIT="../vendor/bin/phpunit"
 PHPCOV="${DIR}/vendor/bin/phpcov"
+PHPMD="${DIR}/vendor/bin/phpmd"
+DEVTOOLS="${DIR}"
 
 # this parses the 'project name' from the git remote url
 PROJECT=$(git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//');
@@ -63,6 +65,23 @@ do
 		if [[ ${file: -4} == ".php" ]]
 			then
 			 $PHPCS --standard="${dev_workspace}/sonar-configuration/Profiles/DVSA/CS/ruleset.xml" $file
+		fi
+	fi
+done
+
+echo "{code}"
+
+echo "h2.Detecting Mess"
+
+echo "{code}"
+
+for file in $(git diff $BASE_BRANCH --name-only);
+do
+	if [ -f $file ]
+		then
+		if [[ ${file: -4} == ".php" ]]
+			then
+			 $PHPMD $file "Devtools\CustomTextRenderer" "${dev_workspace}/sonar-configuration/Profiles/DVSA/PMD/ruleset.xml"
 		fi
 	fi
 done
