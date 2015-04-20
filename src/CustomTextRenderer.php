@@ -21,9 +21,6 @@ class CustomTextRenderer extends AbstractRenderer
      */
     public function renderReport(Report $report)
     {
-        $writer = $this->getWriter();
-        $writer->write(PHP_EOL);
-
         $problems = [];
 
         foreach ($report->getRuleViolations() as $violation) {
@@ -71,46 +68,51 @@ class CustomTextRenderer extends AbstractRenderer
             $problems[$fileName]['errors'][] = $error;
         }
 
-        $writer->write(PHP_EOL);
-        $writer->write(str_repeat('#', 100));
-        $writer->write(PHP_EOL);
-
-        foreach ($problems as $fileName => $fileProblems) {
-            $writer->write($fileName);
-            $writer->write(PHP_EOL);
-            $writer->write(PHP_EOL);
-            $writer->write(count($fileProblems['violations']) . ' Violations');
-            $writer->write(PHP_EOL);
+        if (!empty($problems)) {
+            $writer = $this->getWriter();
             $writer->write(PHP_EOL);
 
-            foreach ($fileProblems['violations'] as $violation) {
-
-                $line = str_pad(
-                    $violation->getBeginLine(),
-                    $fileProblems['settings']['maxLineNoLength'],
-                    ' ',
-                    STR_PAD_LEFT
-                );
-
-                $writer->write($line);
-                $writer->write(' | ');
-                $writer->write($violation->getDescription());
-                $writer->write(PHP_EOL);
-            }
-
-            $writer->write(PHP_EOL);
-            $writer->write(count($fileProblems['errors']) . ' Errors');
-            $writer->write(PHP_EOL);
-            $writer->write(PHP_EOL);
-
-            foreach ($fileProblems['errors'] as $error) {
-                $writer->write('ERROR | ');
-                $writer->write($error->getMessage());
-                $writer->write(PHP_EOL);
-            }
             $writer->write(PHP_EOL);
             $writer->write(str_repeat('#', 100));
             $writer->write(PHP_EOL);
+
+            foreach ($problems as $fileName => $fileProblems) {
+                $writer->write($fileName);
+                $writer->write(PHP_EOL);
+                $writer->write(PHP_EOL);
+                $writer->write(count($fileProblems['violations']) . ' Violations');
+                $writer->write(PHP_EOL);
+                $writer->write(PHP_EOL);
+
+                foreach ($fileProblems['violations'] as $violation) {
+
+                    $line = str_pad(
+                        $violation->getBeginLine(),
+                        $fileProblems['settings']['maxLineNoLength'],
+                        ' ',
+                        STR_PAD_LEFT
+                    );
+
+                    $writer->write($line);
+                    $writer->write(' | ');
+                    $writer->write($violation->getDescription());
+                    $writer->write(PHP_EOL);
+                }
+
+                $writer->write(PHP_EOL);
+                $writer->write(count($fileProblems['errors']) . ' Errors');
+                $writer->write(PHP_EOL);
+                $writer->write(PHP_EOL);
+
+                foreach ($fileProblems['errors'] as $error) {
+                    $writer->write('ERROR | ');
+                    $writer->write($error->getMessage());
+                    $writer->write(PHP_EOL);
+                }
+                $writer->write(PHP_EOL);
+                $writer->write(str_repeat('#', 100));
+                $writer->write(PHP_EOL);
+            }
         }
     }
 }
