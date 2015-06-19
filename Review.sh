@@ -100,7 +100,7 @@ echo "h2.Checking coverage of diff"
 
 echo "{code}"
 
-cd .. && git diff $BASE_BRANCH > test/review/patch.txt && $PHPCOV patch-coverage --patch test/review/patch.txt --path-prefix `pwd`/ test/review/coverage.cov
+cd .. && git diff -w $BASE_BRANCH > test/review/patch.txt && $PHPCOV patch-coverage --patch test/review/patch.txt --path-prefix `pwd`/ test/review/coverage.cov
 
 echo "{code}"
 
