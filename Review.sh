@@ -35,7 +35,14 @@ DEVTOOLS="${DIR}"
 # this parses the 'project name' from the git remote url
 PROJECT=$(git remote -v | head -n1 | awk '{print $2}' | sed 's/.*\///' | sed 's/\.git//');
 
+REVISION=$(git rev-parse --short HEAD)
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+NOW=$(date)
+
 echo "{panel:title=$PROJECT|borderStyle=solid|borderColor=#000|titleBGColor=#75e069|bgColor=#efefef}"
+
+echo "||h6. GIT revision||h6. GIT branch||h6. Time||"
+echo "|${REVISION}|${BRANCH}|${NOW}|"
 
 echo "h2.Check PHP syntax"
 
