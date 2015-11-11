@@ -1,6 +1,6 @@
 {
-    "name": "olcs/olcs-selfserve",
-    "description": "OLCS Self Service Web Site",
+    "name": "olcs/olcs-devtools",
+    "description": "Dev tools",
     "repositories": [
         {
             "type": "vcs",
