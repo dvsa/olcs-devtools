@@ -1,5 +1,7 @@
+#!/usr/bin/env bash
+
 echo
-echo Lookup AWS IPs v 1.0
+echo Lookup AWS IPs v 1.0.1
 echo
 
 export https_proxy="https://proxy.mgmt.prod.dvsa.aws:3128"
@@ -20,6 +22,21 @@ while getopts "r:e:" opt; do
         	"INT")
             		env="APP/NDU/INT"
 	                ;;
+        	"DEV")
+             		env="DEV/APP/DEV"
+	                ;;
+        	"DEMO")
+            		env="DEV/APP/DEMO"
+	                ;;
+        	"POC")
+            		env="DEV/APP/POC"
+	                ;;
+        	"QA")
+            		env="DEV/APP/QA"
+	                ;;
+        	"REG")
+            		env="DEV/APP/REG"
+	                ;;
 	esac
       ;;
   esac
@@ -28,34 +45,45 @@ done
 if [ -z $role ]; then
 	echo "Role not specified, use -r <role>"
 	echo "
-·         ADDRESS (AddressBase)
-·         API (OLCS Backend)
-·         BASTION (Bastion)
-·         CPMSA (CPMS API Tier)
-·         CPMSPROXY (CPMS Reverse Proxies)
-·         CPMSW (CPMS Web Tier)
-·         DIR (OpenDJ Tier)
-·         DOCMAN (FileStore API Tier)
-·         FILE (Samba Tier)
-·         IUAP1 (IU OpenAM Web Agent Proxy Tier 1)
-·         IUAP2 (IU OpenAM Web Agent Proxy Tier 2)
-·         IUAUTH (IU OpenAM Tier)
-·         IUWEB (IU Web Tier)
-·         NFS (Gluster Tier)
-·         PRINT (CUPS Tier)
-·         REPORTS (Jasper Reports Tier)
-·         SEARCH (OLCS ElasticSearch Tier)
-·         SSAP1 (SS OpenAM Web Agent Proxy Tier 1)
-·         SSAP2 (SS OpenAM Web Agent Proxy Tier 2)
-·         SSAUTH (SS OpenAM Tier)
-·         SSWEB (SS Web Tier)
+    ADDRESS   (AddressBase)
+    API       (OLCS Backend)
+    BASTION   (Bastion)
+    CPMSA     (CPMS API Tier)
+    CPMSPROXY (CPMS Reverse Proxies)
+    CPMSW     (CPMS Web Tier)
+    DIR       (OpenDJ Tier)
+    DOCMAN    (FileStore API Tier)
+    FILE      (Samba Tier)
+    IUAP1     (IU OpenAM Web Agent Proxy Tier 1)
+    IUAP2     (IU OpenAM Web Agent Proxy Tier 2)
+    IUAUTH    (IU OpenAM Tier)
+    IUWEB     (IU Web Tier)
+    NFS       (Gluster Tier)
+    PRINT     (CUPS Tier)
+    REPORTS   (Jasper Reports Tier)
+    SEARCH    (OLCS ElasticSearch Tier)
+    SSAP1     (SS OpenAM Web Agent Proxy Tier 1)
+    SSAP2     (SS OpenAM Web Agent Proxy Tier 2)
+    SSAUTH    (SS OpenAM Tier)
+    SSWEB     (SS Web Tier)
 "
-
 	exit;
 fi
 
 if [ -z $env ]; then
-        echo "Environment not found, use -e <PROD|PRE|INT>"
+        echo "Environment not found, use -e <PROD|PRE|INT|DEV|DEMO|POC|QA|REG>"
+        echo "
+    Prod AWS
+        PROD = APP (Production)
+        PRE  = APP/PP (Pre-Prod)
+        INT  = APP/NDU/INT (Integration)
+    Non-Prod AWS
+        DEV  = DEV/APP/DEV (Development)
+        DEMO = DEV/APP/DEMO (Demo)
+        POC  = DEV/APP/POC (PoC)
+        QA   = DEV/APP/QA (QA)
+        REG  = DEV/APP/REG (Regression)
+"
         exit;
 fi
 
@@ -65,6 +93,7 @@ echo "Environment = $env"
 
 aws ec2 describe-instances --region eu-west-1 \
 --query 'Reservations[].Instances[].{IP:PrivateIpAddress}' \
---filter Name=tag:Role,Values="$role" Name=tag:Environment,Values="$env"
+--filter Name=tag:Role,Values="$role" Name=tag:Environment,Values="$env" \
+| grep "IP"
 
 echo
