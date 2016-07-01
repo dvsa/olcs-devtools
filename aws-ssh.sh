@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 echo
-echo Lookup AWS IPs
-echo Version 1.0.2
+echo SSH to an AWS box
+echo Version 1.0.1
 echo
 
 # Uncomment one  of the Proxy setting below
@@ -16,13 +16,16 @@ if [ -z $https_proxy ]; then
 	exit 1;
 fi
 
-while getopts "r:e:" opt; do
+while getopts "r:e:n:" opt; do
   case $opt in
+    n)
+        n=${OPTARG^^}
+        ;;
     r)
-	role=${OPTARG^^}
-      ;;
+        role=${OPTARG^^}
+        ;;
     e)
-	case ${OPTARG^^} in
+        case ${OPTARG^^} in
         	"PROD")
              		env="APP"
 	                ;;
@@ -47,8 +50,8 @@ while getopts "r:e:" opt; do
         	"REG")
             		env="DEV/APP/REG"
 	                ;;
-	esac
-      ;;
+        esac
+        ;;
   esac
 done
 
@@ -97,13 +100,20 @@ if [ -z $env ]; then
         exit;
 fi
 
+if [ -z $n ]; then
+    # if not specified default to first box found
+    n=1
+fi
 
 echo "Role = $role"
 echo "Environment = $env"
+echo "Number = $n"
 
-aws ec2 describe-instances --region eu-west-1 \
+ip=$(aws ec2 describe-instances --region eu-west-1 \
 --query 'Reservations[].Instances[].{IP:PrivateIpAddress}' \
 --filter Name=tag:Role,Values="$role" Name=tag:Environment,Values="$env" \
-| grep "IP"
+| grep -o "10.[0-9\.]*" -m$n | tail -1)
 
-echo
+echo "IP = $ip"
+
+ssh $ip
