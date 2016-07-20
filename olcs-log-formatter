@@ -27,7 +27,10 @@ class colors:
     BOLD = '\033[1m'
     UNDERLINE = '\033[4m'
 
-for line in sys.stdin:
+while True:
+    line = sys.stdin.readline()
+    if not line:
+        break
     try:
         out = json.dumps(json.loads(line), indent=2)
     except ValueError:
