@@ -5,49 +5,54 @@ echo Lookup AWS IPs
 echo Version 1.0.2
 echo
 
-# Uncomment one  of the Proxy setting below
-# PROD proxy
-#export https_proxy="https://proxy.mgmt.prod.dvsa.aws:3128"
-# NON-PROD Proxy
-#export https_proxy="https://proxy.devmgmt.nonprod.dvsa.aws:3128"
+if [[ $(hostname) == *"nonprod"* ]]; then
+  # NON-PROD Proxy
+  export https_proxy="https://proxy.devmgmt.nonprod.dvsa.aws:3128"
+else
+  # PROD proxy
+  export https_proxy="https://proxy.mgmt.prod.dvsa.aws:3128"
+fi
 
 if [ -z $https_proxy ]; then
 	echo "'https_proxy' environment variables is not set!!"
 	exit 1;
 fi
 
-while getopts "r:e:" opt; do
+while getopts "r:e:n:" opt; do
   case $opt in
     r)
-	role=${OPTARG^^}
+      role=${OPTARG^^}
       ;;
     e)
-	case ${OPTARG^^} in
-        	"PROD")
-             		env="APP"
-	                ;;
-        	"PRE")
-            		env="APP/PP"
-	                ;;
-        	"INT")
-            		env="APP/NDU/INT"
-	                ;;
-        	"DEV")
-             		env="DEV/APP/DEV"
-	                ;;
-        	"DEMO")
-            		env="DEV/APP/DEMO"
-	                ;;
-        	"POC")
-            		env="DEV/APP/POC"
-	                ;;
-        	"QA")
-            		env="DEV/APP/QA"
-	                ;;
-        	"REG")
-            		env="DEV/APP/REG"
-	                ;;
-	esac
+      case ${OPTARG^^} in
+        "PROD")
+          env="APP"
+          ;;
+        "PRE")
+          env="APP/PP"
+          ;;
+        "INT")
+          env="APP/NDU/INT"
+          ;;
+        "DEV")
+          env="DEV/APP/DEV"
+          ;;
+        "DEMO")
+          env="DEV/APP/DEMO"
+          ;;
+        "POC")
+          env="DEV/APP/POC"
+          ;;
+        "QA")
+          env="DEV/APP/QA"
+          ;;
+        "DA")
+          env="DEV/APP/DA"
+          ;;
+        "REG")
+          env="DEV/APP/REG"
+          ;;
+      esac
       ;;
   esac
 done
