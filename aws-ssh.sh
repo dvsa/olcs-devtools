@@ -2,7 +2,7 @@
 
 echo
 echo SSH to an AWS box
-echo Version 1.0.2
+echo Version 1.0.3
 echo
 
 if [[ $(hostname) == *"nonprod"* ]]; then
@@ -89,7 +89,7 @@ if [ -z $role ]; then
 fi
 
 if [ -z $env ]; then
-        echo "Environment not found, use -e <PROD|PRE|INT|DEV|DEMO|POC|QA|REG>"
+        echo "Environment not found, use -e <PROD|PRE|INT|DEV|DEMO|POC|QA|DA|REG>"
         echo "
     Prod AWS
         PROD = APP (Production)
@@ -100,6 +100,7 @@ if [ -z $env ]; then
         DEMO = DEV/APP/DEMO (Demo)
         POC  = DEV/APP/POC (PoC)
         QA   = DEV/APP/QA (QA)
+        DA   = DEV/APP/DA (DA)
         REG  = DEV/APP/REG (Regression)
 "
         exit;
