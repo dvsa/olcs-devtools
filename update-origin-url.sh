@@ -10,9 +10,9 @@ find -maxdepth 2 -type d -name .git | while read dir; do
   pwd
 
   # to convert from AWS to skyscape
-  NEW_REMOTE_URL=$(git remote -v | head -n1 | grep "git@[a-z.\/:\-]*" -o | sed s/repo.shd.ci.nonprod.dvsa.aws/gitlab.inf.mgt.mtpdvsa/)
+  #NEW_REMOTE_URL=$(git remote -v | head -n1 | grep "git@[a-z.\/:\-]*" -o | sed s/repo.shd.ci.nonprod.dvsa.aws/gitlab.inf.mgt.mtpdvsa/)
   # to convert from skyscape to AWS
-  #NEW_REMOTE_URL=$(git remote -v | head -n1 | grep "git@[a-z.\/:\-]*" -o | sed s/gitlab.inf.mgt.mtpdvsa/repo.shd.ci.nonprod.dvsa.aws/)
+  NEW_REMOTE_URL=$(git remote -v | head -n1 | grep "git@[a-z.\/:\-]*" -o | sed s/gitlab.inf.mgt.mtpdvsa/repo.shd.ci.nonprod.dvsa.aws/)
   echo " ->" $NEW_REMOTE_URL
   git remote set-url origin $NEW_REMOTE_URL
 	if [ $? -ne 0 ]; then
