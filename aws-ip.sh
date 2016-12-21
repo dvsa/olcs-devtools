@@ -1,9 +1,55 @@
 #!/usr/bin/env bash
 
-echo
-echo Lookup AWS IPs
-echo Version 1.0.2
-echo
+#echo
+#echo Lookup AWS IPs
+#echo Version 1.0.3
+#echo
+
+usage() {
+    if [ -n "$1" ]; then
+        echo;
+        echo "Error : $1"
+        echo
+    fi
+    echo "Usage:"
+    echo "  aws-ip.sh -r <role> -e <environment> [-n <instance number>] [-h]"
+    echo
+    echo "Options:"
+    echo "  -h Show usage information (this screen)"
+    echo "  -n Instance number to connect to. Eg 1 = first found instance, 2 = second, etc"
+    echo "  -r Role, one of:
+        ADDRESS   AddressBase
+        API       OLCS Backend
+        BASTION   Bastion
+        CPMSAPI   CPMS API Tier
+        CPMSPROXY CPMS Reverse Proxies
+        CPMSW     CPMS Web Tier
+        DIR       OpenDJ Tier
+        DOCMAN    FileStore API Tier
+        FILE      Samba Tier
+        IUAP1     IU OpenAM Web Agent Proxy Tier 1
+        IUAP2     IU OpenAM Web Agent Proxy Tier 2
+        IUAUTH    IU OpenAM Tier
+        IUWEB     IU Web Tier
+        NFS       Gluster Tier
+        PRINT     CUPS Tier
+        REPORTS   Jasper Reports Tier
+        SEARCH    OLCS ElasticSearch Tier
+        SSAP1     SS OpenAM Web Agent Proxy Tier 1
+        SSAP2     SS OpenAM Web Agent Proxy Tier 2
+        SSAUTH    SS OpenAM Tier
+        SSWEB     SS Web Tier"
+    echo "  -e Environment, one of:
+        PROD      APP (Production)
+        PRE       APP/PP (Pre-Prod)
+        INT       APP/NDU/INT (Integration)
+        DEV       DEV/APP/DEV (Development)
+        DEMO      DEV/APP/DEMO (Demo)
+        POC       DEV/APP/POC (PoC)
+        QA        DEV/APP/QA (QA)
+        REG       DEV/APP/REG (Regression)"
+	exit 2;
+}
 
 if [[ $(hostname) == *"nonprod"* ]]; then
   # NON-PROD Proxy
@@ -18,7 +64,7 @@ if [ -z $https_proxy ]; then
 	exit 1;
 fi
 
-while getopts "r:e:n:" opt; do
+while getopts "r:e:n:h" opt; do
   case $opt in
     r)
       role=${OPTARG^^}
@@ -54,61 +100,35 @@ while getopts "r:e:n:" opt; do
           ;;
       esac
       ;;
+    n)
+      n=${OPTARG^^}
+      ;;
+    h)
+      usage
+      ;;
   esac
 done
 
 if [ -z $role ]; then
-	echo "Role not specified, use -r <role>"
-	echo "
-    ADDRESS   (AddressBase)
-    API       (OLCS Backend)
-    BASTION   (Bastion)
-    CPMSA     (CPMS API Tier)
-    CPMSPROXY (CPMS Reverse Proxies)
-    CPMSW     (CPMS Web Tier)
-    DIR       (OpenDJ Tier)
-    DOCMAN    (FileStore API Tier)
-    FILE      (Samba Tier)
-    IUAP1     (IU OpenAM Web Agent Proxy Tier 1)
-    IUAP2     (IU OpenAM Web Agent Proxy Tier 2)
-    IUAUTH    (IU OpenAM Tier)
-    IUWEB     (IU Web Tier)
-    NFS       (Gluster Tier)
-    PRINT     (CUPS Tier)
-    REPORTS   (Jasper Reports Tier)
-    SEARCH    (OLCS ElasticSearch Tier)
-    SSAP1     (SS OpenAM Web Agent Proxy Tier 1)
-    SSAP2     (SS OpenAM Web Agent Proxy Tier 2)
-    SSAUTH    (SS OpenAM Tier)
-    SSWEB     (SS Web Tier)
-"
-	exit;
+	usage "Role must be specified with -r"
 fi
 
 if [ -z $env ]; then
-        echo "Environment not found, use -e <PROD|PRE|INT|DEV|DEMO|POC|QA|REG>"
-        echo "
-    Prod AWS
-        PROD = APP (Production)
-        PRE  = APP/PP (Pre-Prod)
-        INT  = APP/NDU/INT (Integration)
-    Non-Prod AWS
-        DEV  = DEV/APP/DEV (Development)
-        DEMO = DEV/APP/DEMO (Demo)
-        POC  = DEV/APP/POC (PoC)
-        QA   = DEV/APP/QA (QA)
-        REG  = DEV/APP/REG (Regression)
-"
-        exit;
+  usage "Environment must be specified with -e"
 fi
 
+#echo "Role = $role"
+#echo "Environment = $env"
 
-echo "Role = $role"
-echo "Environment = $env"
-
-aws ec2 describe-instances --region eu-west-1 \
+IPS=$(aws ec2 describe-instances --region eu-west-1 \
 --query 'Reservations[].Instances[].{IP:PrivateIpAddress}' \
 --filter Name=tag:Role,Values="$role" Name=tag:Environment,Values="$env" \
-| grep "IP"
+| grep "IP" | grep -o "[0-9]*\.[0-9]*\.[0-9]*\.[0-9]*")
 
-echo
+if [ -z $n ]; then
+  # Echo All the IPs
+  echo "$IPS"
+else
+  # Echo just IP number n
+  echo "$IPS" | sed -n "$n"p
+fi
