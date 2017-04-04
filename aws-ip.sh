@@ -18,27 +18,28 @@ usage() {
     echo "  -h Show usage information (this screen)"
     echo "  -n Instance number to connect to. Eg 1 = first found instance, 2 = second, etc"
     echo "  -r Role, one of:
-        ADDRESS   AddressBase
-        API       OLCS Backend
-        BASTION   Bastion
-        CPMSAPI   CPMS API Tier
-        CPMSPROXY CPMS Reverse Proxies
-        CPMSW     CPMS Web Tier
-        DIR       OpenDJ Tier
-        DOCMAN    FileStore API Tier
-        FILE      Samba Tier
-        IUAP1     IU OpenAM Web Agent Proxy Tier 1
-        IUAP2     IU OpenAM Web Agent Proxy Tier 2
-        IUAUTH    IU OpenAM Tier
-        IUWEB     IU Web Tier
-        NFS       Gluster Tier
-        PRINT     CUPS Tier
-        REPORTS   Jasper Reports Tier
-        SEARCH    OLCS ElasticSearch Tier
-        SSAP1     SS OpenAM Web Agent Proxy Tier 1
-        SSAP2     SS OpenAM Web Agent Proxy Tier 2
-        SSAUTH    SS OpenAM Tier
-        SSWEB     SS Web Tier"
+        ADDRESS    AddressBase
+        API        OLCS Backend
+        BASTION    Bastion
+        CPMSAPI    CPMS API Tier
+        CPMSPROXY  CPMS Reverse Proxies
+        CPMSW      CPMS Web Tier
+        DIR        OpenDJ Tier
+        DOCMAN     FileStore API Tier
+        FILE       Samba Tier
+        IUAP1      IU OpenAM Web Agent Proxy Tier 1
+        IUAP2      IU OpenAM Web Agent Proxy Tier 2
+        IUAUTH     IU OpenAM Tier
+        IUWEB      IU Web Tier
+        NFS        Gluster Tier
+        PRINT      CUPS Tier
+        REPORTS    Jasper Reports Tier
+        SEARCH     OLCS ElasticSearch Tier
+        SEARCHDATA OLCS Logstash
+        SSAP1      SS OpenAM Web Agent Proxy Tier 1
+        SSAP2      SS OpenAM Web Agent Proxy Tier 2
+        SSAUTH     SS OpenAM Tier
+        SSWEB      SS Web Tier"
     echo "  -e Environment, one of:
         PROD      APP (Production)
         PRE       APP/PP (Pre-Prod)
