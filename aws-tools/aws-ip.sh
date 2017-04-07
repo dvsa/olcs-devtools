@@ -39,7 +39,8 @@ usage() {
         SSAP1      SS OpenAM Web Agent Proxy Tier 1
         SSAP2      SS OpenAM Web Agent Proxy Tier 2
         SSAUTH     SS OpenAM Tier
-        SSWEB      SS Web Tier"
+        SSWEB      SS Web Tier
+        MATCH      Verify Matching Service"
     echo "  -e Environment, one of:
         PROD      APP (Production)
         PRE       APP/PP (Pre-Prod)
@@ -48,7 +49,8 @@ usage() {
         DEMO      DEV/APP/DEMO (Demo)
         POC       DEV/APP/POC (PoC)
         QA        DEV/APP/QA (QA)
-        REG       DEV/APP/REG (Regression)"
+        REG       DEV/APP/REG (Regression)
+        CI        DEV/APP/CI (CI Jenkins)"
 	exit 2;
 }
 
@@ -98,6 +100,9 @@ while getopts "r:e:n:h" opt; do
           ;;
         "REG")
           env="DEV/APP/REG"
+          ;;
+        "CI")
+          env="DEV/APP/CI"
           ;;
       esac
       ;;
