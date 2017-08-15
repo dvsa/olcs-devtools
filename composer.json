@@ -20,13 +20,13 @@
     ],
     "require": {
         "php": ">=5.4",
-        "olcs/coding-standards": "dev-master"
+        "olcs/coding-standards": "^1.0.0",
+        "squizlabs/php_codesniffer": "~1.5.3"
     },
     "require-dev": {
-        "squizlabs/php_codesniffer": "*",
-        "phpunit/phpunit": "^5.0",
-        "phpunit/phpcov": "*",
-        "phpmd/phpmd": "*"
+        "phpunit/phpunit": "4.*",
+        "phpunit/phpcov": "dev-master",
+        "phpmd/phpmd": "~2.2.2"
     },
     "config": {
         "preferred-install": "dist",
