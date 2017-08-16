@@ -37,5 +37,5 @@
             "Devtools\\": "src/"
         }
     },
-    "bin": ["Review.sh", "composer-update-syms.sh"]
+    "bin": ["bin/review", "bin/composer-update-syms"]
 }
