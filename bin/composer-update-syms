@@ -3,7 +3,7 @@
 if [ -f "composer.json" ]; then
 	if [ -d ./vendor/olcs ]; then
 		# iterate each vendor/olcs* symlink, and remove alos if a .bak exists then restore it
-		for line in $(find ./vendor/olcs -type l); do
+		for line in $(find ./vendor/olcs -maxdepth 1 -mindepth 1 -type l); do
 			echo "Remove symlink: $line"
 			rm "$line"
 			if [ -d $line.bak ]; then

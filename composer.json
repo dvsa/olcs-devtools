@@ -6,10 +6,6 @@
             "packagist": false
         },
         {
-            "type": "vcs",
-            "url": "https://github.com/MajorCaiger/phpcov.git"
-        },
-        {
             "url": "http://devrepo.shd.ci.nonprod.dvsa.aws",
             "type": "composer"
         },
@@ -22,9 +18,9 @@
         "php": "~5.4",
         "olcs/coding-standards": "^1.0.0",
         "squizlabs/php_codesniffer": "~1.5.3",
-        "phpunit/phpunit": "4.*",
-        "phpunit/phpcov": "dev-master",
-        "phpmd/phpmd": "~2.2.2"
+        "phpunit/phpunit": "~5.7",
+        "phpunit/phpcov": "~3.0",
+        "phpmd/phpmd": "~2.2"
     },
     "require-dev": {
     },
