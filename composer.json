@@ -15,7 +15,7 @@
         }
     ],
     "require": {
-        "php": "~5.4",
+        "php": ">=5.4",
         "olcs/coding-standards": "^1.0.0",
         "squizlabs/php_codesniffer": "~1.5.3",
         "phpunit/phpunit": "~5.7",
