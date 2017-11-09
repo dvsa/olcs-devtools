@@ -10,4 +10,4 @@
     vol-each = "!f() { git vol-bash-each git \"$@\"; }; f"
 
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
-    vol-branches = "!f() { echo && ls | xargs -I% bash -c \"echo -n '%: ' && git -C \"%\" rev-parse --abbrev-ref HEAD\" | column -t; }; f"
+    vol-branches = "!f() { VOL_GIT_PRINT_CONTEXT=0 git vol-bash-each bash -c 'echo -n \"% \" && git rev-parse --abbrev-ref HEAD' | column -t; }; f"
