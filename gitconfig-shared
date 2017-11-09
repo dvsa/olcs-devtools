@@ -2,5 +2,8 @@
     # This allows you to run any git command over each subdirectory in one go
     vol-each = "!f() { ls | xargs -I% bash -c 'cd \"%\" || exit ; echo -e \"\n\\e[35mRepository: \\e[32m%\\e[0m\"; git \"$@\"' bash \"$@\"; }; f"
 
+    # This allows you to run any bash command in each subdirectory in one go
+    vol-bash-each = "!f() { ls | xargs -I% bash -c 'cd \"%\" || exit ; echo -e \"\n\\e[35mRepository: \\e[32m%\\e[0m\"; \"$@\"' bash \"$@\"; }; f"
+
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
     vol-branches = "!f() { echo && ls | xargs -I% bash -c \"echo -n '%: ' && git -C \"%\" rev-parse --abbrev-ref HEAD\" | column -t; }; f"
