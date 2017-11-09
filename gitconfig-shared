@@ -1,6 +1,6 @@
 [alias]
     # This allows you to run any git command over all subdirectories at the same time
-    vall = "!f() { ls | xargs -P10 -I% echo $@; }; f"
+    vall = "!f() { ls | xargs -P10 -I% git -C % \"$@\"; }; f"
 
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
     vbranches = "!f() { echo && ls | xargs -I% bash -c \"echo -n '%: ' && git -C % rev-parse --abbrev-ref HEAD\" | column -t; }; f"
