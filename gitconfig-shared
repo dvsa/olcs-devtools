@@ -1,0 +1,3 @@
+[alias]
+    all = "!f() { ls | xargs -P10 -I{} git -C {} $1; }; f"
+    branches = "!f() { echo && ls | xargs -I% bash -c \"echo -n '%: ' && git -C % rev-parse --abbrev-ref HEAD\" | column -t; }; f"
