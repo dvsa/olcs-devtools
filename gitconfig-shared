@@ -1,6 +1,6 @@
 [alias]
     # This allows you to run any git command over each subdirectory in one go
-    vol-each = "!f() { ls | xargs -P10 -I% git -C % \"$@\"; }; f"
+    vol-each = "!f() { ls | xargs -P10 -I% git -C \"%\" \"$@\"; }; f"
 
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
-    vol-branches = "!f() { echo && ls | xargs -I% bash -c \"echo -n '%: ' && git -C % rev-parse --abbrev-ref HEAD\" | column -t; }; f"
+    vol-branches = "!f() { echo && ls | xargs -I% bash -c \"echo -n '%: ' && git -C \"%\" rev-parse --abbrev-ref HEAD\" | column -t; }; f"
