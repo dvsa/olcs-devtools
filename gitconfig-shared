@@ -12,5 +12,9 @@
     # e.g: git vol-each status
     vol-each = "!git vol-bash-each git"
 
+    # This allows you to run any git command over each git sub-directory which is tracking an upstream directory in one go
+    # e.g: git vol-each-tracking status
+    vol-each-tracking = "!git vol-bash-each-tracking git"
+
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
     vol-branches = "!VOL_GIT_VERBOSE=0 git vol-bash-each bash -c 'echo -n \"% \" && git rev-parse --abbrev-ref HEAD' | column -t"
