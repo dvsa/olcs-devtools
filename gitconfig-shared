@@ -1,13 +1,16 @@
 [alias]
     # This allows you to run any bash command in each git sub-directory in one go
     # e.g: git vol-bash-each ls
-    vol-bash-each = "!ls | xargs -I% bash -c '[ -d \"%/.git\" ] && cd \"%\" || exit ; [ \"$VOL_GIT_PRINT_CONTEXT\" != \"0\" ] && echo -e \"\n\\e[35mRepository: \\e[32m%\\e[0m\"; \"$@\"' bash"
-    # set VOL_GIT_PRINT_CONTEXT=0 to silence the location output - e.g.:
-    # e.g: VOL_GIT_PRINT_CONTEXT=0 git vol-bash-each ls
+    vol-bash-each = "!ls | xargs -I% bash -c '[ -d \"%/.git\" ] && cd \"%\" || exit ; [ \"$VOL_GIT_VERBOSE\" != \"0\" ] && echo -e \"\n\\e[35mRepository: \\e[32m%\\e[0m\"; \"$@\"' bash"
+    # set VOL_GIT_VERBOSE=0 to silence the location output - e.g.:
+    # e.g: VOL_GIT_VERBOSE=0 git vol-bash-each ls
+
+    # This allows you to run any bash command over each git sub-directory which is tracking an upstream directory
+    vol-bash-each-tracking = "!git vol-bash-each bash -c 'git config branch.`git rev-parse --abbrev-ref HEAD`.remote >> /dev/null || ([ \"$VOL_GIT_VERBOSE\" != \"0\" ] && echo -e \"\\e[33mNot tracking\\e[0m\" && false) || exit; \"$@\"' bash"
 
     # This allows you to run any git command over each git sub-directory in one go
     # e.g: git vol-each status
     vol-each = "!git vol-bash-each git"
 
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
-    vol-branches = "!VOL_GIT_PRINT_CONTEXT=0 git vol-bash-each bash -c 'echo -n \"% \" && git rev-parse --abbrev-ref HEAD' | column -t"
+    vol-branches = "!VOL_GIT_VERBOSE=0 git vol-bash-each bash -c 'echo -n \"% \" && git rev-parse --abbrev-ref HEAD' | column -t"
