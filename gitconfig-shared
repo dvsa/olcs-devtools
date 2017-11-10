@@ -16,5 +16,8 @@
     # e.g: git vol-each-tracking status
     vol-each-tracking = "!git vol-bash-each-tracking git"
 
+    # Pulls all git repos which are tracking a remote
+    vol-pull = "!git vol-bash-each-tracking git pull"
+
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
     vol-branches = "!VOL_GIT_VERBOSE=0 git vol-bash-each bash -c 'echo -n \"% \" && git rev-parse --abbrev-ref HEAD' | column -t"
