@@ -1,13 +1,13 @@
 [alias]
     # This allows you to run any bash command in each subdirectory in one go
     # e.g: git vol-bash-each ls
-    vol-bash-each = "!f() { ls | xargs -I% bash -c '[ -d \"%/.git\" ] && cd \"%\" || exit ; [ \"$VOL_GIT_PRINT_CONTEXT\" != \"0\" ] && echo -e \"\n\\e[35mRepository: \\e[32m%\\e[0m\"; \"$@\"' bash \"$@\"; }; f"
+    vol-bash-each = "!ls | xargs -I% bash -c '[ -d \"%/.git\" ] && cd \"%\" || exit ; [ \"$VOL_GIT_PRINT_CONTEXT\" != \"0\" ] && echo -e \"\n\\e[35mRepository: \\e[32m%\\e[0m\"; \"$@\"' bash"
     # set VOL_GIT_PRINT_CONTEXT=0 to silence the location output - e.g.:
     # e.g: VOL_GIT_PRINT_CONTEXT=0 git vol-bash-each ls
 
     # This allows you to run any git command over each subdirectory in one go
     # e.g: git vol-each status
-    vol-each = "!f() { git vol-bash-each git \"$@\"; }; f"
+    vol-each = "!git vol-bash-each git"
 
     # This lists all the subdirectories in the current directory and tells you which branch they are checked out on
-    vol-branches = "!f() { VOL_GIT_PRINT_CONTEXT=0 git vol-bash-each bash -c 'echo -n \"% \" && git rev-parse --abbrev-ref HEAD' | column -t; }; f"
+    vol-branches = "!VOL_GIT_PRINT_CONTEXT=0 git vol-bash-each bash -c 'echo -n \"% \" && git rev-parse --abbrev-ref HEAD' | column -t"
