@@ -30,9 +30,14 @@ declare -a repos=(
         'git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-utils.git'
         )
 
-for i in "${repos[@]}"
-do
-	git clone $i
-done
+#for i in "${repos[@]}"
+#do
+#	git clone $i
+#done
 
-git vol-each checkout -B feature/OLCS-20319-zf3-upgrade
+vm=`sed -n '/# start olcs_v2/,/# end olcs_v2/p' ../infrastructure/Vagrantfile`
+
+vm=$(echo "$vm" | sed "s/\'olcs_v2\'/olcs_v3/g")
+
+echo $vm
+
