@@ -52,14 +52,12 @@ COMMENT=$(($COMMENT+1))
 
 ZF3Vagrant=$VAGRANTFILE"-ZF3"
 echo $vm > $ZF3Vagrant
-
+ZF3Vagrant="\'../Vagrantfile-ZF3\'"
 # server_vagrantfile = File.expand_path('../vagrant/Vagrantfile.server', __FILE__)
 # eval File.read(server_vagrantfile) if File.exists?(server_vagrantfile)
 echo "updating Vagrant file at line $COMMENT"
 INCLUDE="NR=="$COMMENT
 INCLUDE2="NR=="$(($COMMENT+1))
 echo $INCLUDE2
-echo "`awk $INCLUDE'{print "# zf3_vagrant = File.expand_path('$ZF3Vagrant',__FILE__)"}1' $VAGRANTFILE`" > $VAGRANTFILE
-echo "`awk $INCLUDE2'{print "# eval File.read(zf3_vagrant)  if File.exists?(zf3_vagrant)"}1' $VAGRANTFILE`" > $VAGRANTFILE
-
-
+echo "`awk $INCLUDE'{print " zf3_vagrant = File.expand_path('$ZF3Vagrant',__FILE__)"}1' $VAGRANTFILE`" > $VAGRANTFILE
+echo "`awk $INCLUDE2'{print "eval File.read(zf3_vagrant)  if File.exists?(zf3_vagrant)"}1' $VAGRANTFILE`" > $VAGRANTFILE
