@@ -1,7 +1,7 @@
 #!/bin/bash
 IFS=
 set -e
-SETUP=$1
+SETUP=${1-NOCLEAN}
 echo $SETUP
 #warnign dangerous ARG used for development ease only
 if [ $SETUP == 'CLEAN' ]
@@ -44,13 +44,10 @@ VAGRANTFILE="../infrastructure/Vagrantfile"
 
 declare -a hosts=(
         ''
-        '192.168.149.133 zf3-olcs-internal zf3-selfserve zf3-olcs-backend zf3-olcs-ebsr zf3-olcs-nr'
-        '192.168.149.211 zf3-olcs-internal.olcs.gov.uk'
-        '192.168.149.212 zf3-olcs-selfserve.olcs.gov.uk'
-        '192.168.149.213 zf3-olcs-backend.olcs.gov.uk'
+        '192.168.149.13 olcs-internal olcs-selfserve olcs-backend olcs-ebsr olcs-nr'
 )
 
-printf "%s\n" "${hosts[@]}" >> "../infrastructure/olcs/files/etc/hosts"
+#printf "%s\n" "${hosts[@]}" >> "../infrastructure/olcs/files/etc/hosts"
 
 #
 authProvisionLine=`grep -n "#dynamic_zf3_provisioning" $VAGRANTFILE | cut -d: -f 1`
@@ -63,23 +60,12 @@ for i in "${!hosts[@]}"; do
 
 done
 
-authProvisionLine=`grep -n "# end dynamic zf3 network" $VAGRANTFILE | cut -d: -f 1`
-authProvisionLine=$(($authProvisionLine-1))
-INCLUDE="NR=="$authProvisionLine
 
-echo $INCLUDE
-
-echo "`awk $INCLUDE'{print " olcs_auth.vm.network \42private_network\42, ip: \42 192.168.149.210\42 "}1' $VAGRANTFILE`" > $VAGRANTFILE
+#
 INCLUDE="NR=="$(($authProvisionLine+1))
-echo "`awk $INCLUDE'{print " olcs_auth.vm.network \42private_network\42, ip: \42 192.168.149.211\42 "}1' $VAGRANTFILE`" > $VAGRANTFILE
-INCLUDE="NR=="$(($authProvisionLine+2))
-echo "`awk $INCLUDE'{print " olcs_auth.vm.network \42private_network\42, ip: \42 192.168.149.212\42 "}1' $VAGRANTFILE`" > $VAGRANTFILE
-INCLUDE="NR=="$(($authProvisionLine+3))
-echo "`awk $INCLUDE'{print " olcs_auth.vm.network \42private_network\42, ip: \42 192.168.149.213\42 "}1' $VAGRANTFILE`" > $VAGRANTFILE
-
-
-
-
+#
+echo $INCLUDE
+echo "`awk $INCLUDE'{print "sed \42/192.168.1.149.12 olcs-internal olcs-selfserve olcs-backend olcs-ebsr olcs-nr /d\42 /etc/hosts"}1' $VAGRANTFILE`" > $VAGRANTFILE
 
 
 STARTCOMMENT="# start olcs_v2"
@@ -90,6 +76,7 @@ vm=$(echo "$vm" | sed "s/olcs_v2/olcs_v3/g")
 vm=$(echo "$vm" | sed "s/'olcs-v2'/'olcs-v3'/g")
 vm=$(echo "$vm" | sed "s/mounts.yaml/mounts-zf3.yaml/g")
 vm=$(echo "$vm" | sed "s/:zf2/:zf3/g")
+vm=$(echo "$vm" | sed "s/host: 8080/host: 8085/g")
 vm=$(echo "$vm" | sed "s/host: 8080/host: 8085/g")
 #vm=$(echo "$vm" | sed "s/virtualhosts.yaml/virtualhosts-zf3.yaml/g")
 vm=$(echo "$vm" | sed "s/zf2/zf3/g")
