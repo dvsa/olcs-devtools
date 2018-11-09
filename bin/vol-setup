@@ -1,0 +1,39 @@
+#!/bin/bash
+
+gitlab_url=git@repo.shd.ci.nonprod.dvsa.aws
+group=olcs
+projects=(companies-house olcs-auth olcs-autoload olcs-backend olcs-ci olcs-coding-standards olcs-common olcs-config olcs-devtools 
+    olcs-elasticsearch olcs-etl olcs-internal olcs-logging olcs-oa olcs-plugins olcs-reporting olcs-selfserve olcs-static 
+    olcs-static-server olcs-template-processor olcs-templates olcs-testhelpers olcs-transfer olcs-txc olcs-utils)
+
+while [ -z "$volDir" ]; do
+	read -e -p "$(tput setaf 6)Where should vol be setup?$(tput sgr0) " volDir
+    if [ ! -z "$volDir" ] && [ ! -d "$volDir" ]; then
+        mkdir "$volDir"        
+    fi
+done
+
+cd "$volDir" || exit
+
+printf "$(tput bold)Setting VOL up in: %s$(tput sgr0)\\n" "$(pwd)"
+
+for project in "${projects[@]}"; do
+    printf "$(tput bold)Processing %s...$(tput sgr0)\\n" "$project"
+    if [ ! -d "$project" ]; then
+        printf "$(tput setaf 6)\\tCloning $(tput sgr0)\\n" "$project"
+        git clone "$gitlab_url:$group/$project.git" &>/dev/null
+    else
+        printf "$(tput setaf 6)\\tProject already present$(tput sgr0)\\n" "$project"
+    fi
+    
+    if [ -f "$project/composer.json" ]; then
+        printf "$(tput setaf 6)\\tRunning composer setup$(tput sgr0)\\n"
+        cd "$project" || return
+        composer install &>/dev/null
+        composer update-syms &>/dev/null
+        cd ..
+    fi
+    printf "$(tput bold)Done $(tput sgr0)\\n"
+done
+
+
