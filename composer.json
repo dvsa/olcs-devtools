@@ -20,7 +20,8 @@
         "squizlabs/php_codesniffer": "~3.1",
         "phpunit/phpunit": "7.*",
         "phpunit/phpcov": "5.*",
-        "phpmd/phpmd": "~2.2"
+        "phpmd/phpmd": "~2.2",
+        "elendev/nexus-composer-push": "^0.0.4"
     },
     "require-dev": {
     },
@@ -33,5 +34,10 @@
             "Devtools\\": "src/"
         }
     },
-    "bin": ["bin/review", "bin/composer-update-syms"]
+    "bin": ["bin/review", "bin/composer-update-syms"],
+    "extra": {
+        "nexus-push": {
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-devtools"
+        }
+    }
 }
