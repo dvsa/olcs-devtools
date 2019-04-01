@@ -40,7 +40,7 @@
     ],
     "extra": {
         "nexus-push": {
-            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-devtools"
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/olcs-devtools/"
         }
     }
 }
