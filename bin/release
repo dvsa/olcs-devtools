@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BRANCH="develop"
+BRANCH="master"
 while getopts "hb:" opt; do
   case $opt in
     h)
