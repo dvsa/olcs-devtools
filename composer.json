@@ -23,18 +23,21 @@
         "phpmd/phpmd": "~2.2",
         "elendev/nexus-composer-push": "^0.0.4"
     },
-    "require-dev": {
-    },
+    "require-dev": {},
     "config": {
         "preferred-install": "dist",
-        "secure-http" : false
+        "secure-http": false
     },
     "autoload": {
         "psr-4": {
             "Devtools\\": "src/"
         }
     },
-    "bin": ["bin/review", "bin/composer-update-syms"],
+    "bin": [
+        "bin/review",
+        "bin/composer-update-syms",
+        "bin/release"
+    ],
     "extra": {
         "nexus-push": {
             "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/olcs-devtools"
