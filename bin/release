@@ -1,6 +1,7 @@
 #!/bin/bash
 
 BRANCH="master"
+STASHED=false
 while getopts "hb:" opt; do
   case $opt in
     h)
@@ -30,9 +31,17 @@ else
     exit;
 fi
 
+if [[ `git status --porcelain` ]]; then
+    git stash
+    STASHED=true
+fi
+
 git checkout "$BRANCH"
 git pull
 git tag -a "$VERSION" -m "$VERSION"
 git push origin "$VERSION"
 
 composer nexus-push "$VERSION"
+
+[ $STASHED ] && git stash pop
+
