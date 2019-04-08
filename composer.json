@@ -6,32 +6,40 @@
             "packagist": false
         },
         {
-            "url": "http://devrepo.shd.ci.nonprod.dvsa.aws",
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS",
             "type": "composer"
         },
         {
-            "url": "git@repo.shd.ci.nonprod.dvsa.aws:olcs/olcs-coding-standards.git",
-            "type": "vcs"
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy",
+            "type": "composer"
         }
     ],
     "require": {
         "php": ">=5.4",
-        "olcs/coding-standards": "^1.2.1",
+        "olcs/coding-standards": "^4.203",
         "squizlabs/php_codesniffer": "~3.1",
         "phpunit/phpunit": "7.*",
         "phpunit/phpcov": "5.*",
-        "phpmd/phpmd": "~2.2"
-    },
-    "require-dev": {
+        "phpmd/phpmd": "~2.2",
+        "elendev/nexus-composer-push": "^0.0.4"
     },
     "config": {
         "preferred-install": "dist",
-        "secure-http" : false
+        "secure-http": false
     },
     "autoload": {
         "psr-4": {
             "Devtools\\": "src/"
         }
     },
-    "bin": ["bin/review", "bin/composer-update-syms"]
+    "bin": [
+        "bin/review",
+        "bin/composer-update-syms",
+        "bin/release"
+    ],
+    "extra": {
+        "nexus-push": {
+            "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/olcs-devtools/"
+        }
+    }
 }
