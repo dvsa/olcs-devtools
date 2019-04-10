@@ -43,5 +43,4 @@ git push origin "$VERSION"
 
 composer nexus-push "$VERSION"
 
-[ $STASHED ] && git stash pop
-
+[ "$STASHED" == true ] && git stash pop
