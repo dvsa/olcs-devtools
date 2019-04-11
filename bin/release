@@ -2,7 +2,8 @@
 
 BRANCH="master"
 STASHED=false
-while getopts "hb:" opt; do
+SKIP_TAG=false
+while getopts "hbs:" opt; do
   case $opt in
     h)
         echo;
@@ -11,12 +12,16 @@ while getopts "hb:" opt; do
         echo;
         echo "  -h          Show help (this)"
         echo "  -b <branch> Branch to create tag from if not master"
+        echo "  -s skip creating a tag. Useful if creating package from existing tag"
         echo;
         exit;
       ;;
     b)
         BRANCH=$OPTARG
       ;;
+    s)
+        SKIP_TAG=true
+        ;;
     *)
     ;;
   esac
@@ -38,10 +43,11 @@ fi
 
 git checkout "$BRANCH"
 git pull
-git tag -a "$VERSION" -m "$VERSION"
-git push origin "$VERSION"
+if [ "$SKIP_TAG" == false ]; then
+    git tag -a "$VERSION" -m "$VERSION"
+    git push origin "$VERSION"
+fi
 
 composer nexus-push "$VERSION"
 
-[ $STASHED ] && git stash pop
-
+[ "$STASHED" == true ] && git stash pop
