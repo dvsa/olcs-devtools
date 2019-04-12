@@ -21,7 +21,7 @@
         "phpunit/phpunit": "7.*",
         "phpunit/phpcov": "5.*",
         "phpmd/phpmd": "~2.2",
-        "elendev/nexus-composer-push": "^0.0.4"
+        "elendev/nexus-composer-push": "^0.1"
     },
     "config": {
         "preferred-install": "dist",
