@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "bf7aebeaeec1c3075ee0013d20d710c3",
+    "content-hash": "d039c399f666002ee9eb5f61a8144a57",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -307,16 +307,29 @@
         },
         {
             "name": "olcs/coding-standards",
-            "version": "4.203.0",
+            "version": "4.205.0",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/coding-standards/4.203.0/olcs-coding-standards-4.203.0.zip",
-                "reference": "c9ffe593535ef589179c353ec381e0e7f563dc25",
-                "shasum": "c9ffe593535ef589179c353ec381e0e7f563dc25"
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/OLCS/olcs/coding-standards/4.205.0/olcs-coding-standards-4.205.0.zip",
+                "reference": "bbde1459a0eb5d7c4bd735915ef4340f5739cee3",
+                "shasum": "bbde1459a0eb5d7c4bd735915ef4340f5739cee3"
+            },
+            "require": {
+                "elendev/nexus-composer-push": "^0.1"
             },
             "type": "library",
+            "extra": {
+                "nexus-push": {
+                    "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/olcs-coding-standards"
+                }
+            },
+            "scripts": {
+                "release": [
+                    "release"
+                ]
+            },
             "description": "OLCS CodeSniffer and MessDetector rule sets",
-            "time": "2019-04-04T14:04:08+00:00"
+            "time": "2019-04-12T15:31:03+00:00"
         },
         {
             "name": "pdepend/pdepend",
