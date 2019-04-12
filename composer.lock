@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0362dc3b305657e49154db419ce9e5da",
+    "content-hash": "bf7aebeaeec1c3075ee0013d20d710c3",
     "packages": [
         {
             "name": "doctrine/instantiator",
@@ -58,11 +58,11 @@
         },
         {
             "name": "elendev/nexus-composer-push",
-            "version": "v0.0.4",
+            "version": "v0.1.0",
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Elendev/nexus-composer-push/zipball/c8ca3207e42078521a203410042e3938dc8da9f9",
-                "reference": "c8ca3207e42078521a203410042e3938dc8da9f9",
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/elendev/nexus-composer-push/v0.1.0/elendev-nexus-composer-push-v0.1.0.zip",
+                "reference": "4e60c26092fc7bccff94ccc9f86d2047890d26f4",
                 "shasum": ""
             },
             "require": {
@@ -74,6 +74,9 @@
                 "symfony/filesystem": "^3.0|^4.0",
                 "symfony/finder": "^3.0|^4.0"
             },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^2.14"
+            },
             "type": "composer-plugin",
             "extra": {
                 "class": "Elendev\\NexusComposerPush\\Plugin"
@@ -83,15 +86,14 @@
                     "Elendev\\NexusComposerPush\\": "src/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
             "authors": [
                 {
-                    "name": "Jonas Renaudot",
+                    "name": "Elendev",
                     "email": "jonas.renaudot@gmail.com"
                 }
             ],
             "description": "Provide a Push command to composer to push to Nexus repositories",
-            "time": "2019-03-11T10:16:41+00:00"
+            "time": "2019-04-11T13:26:33+00:00"
         },
         {
             "name": "guzzlehttp/guzzle",
@@ -263,11 +265,11 @@
         },
         {
             "name": "myclabs/deep-copy",
-            "version": "1.8.1",
+            "version": "1.9.1",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/myclabs/deep-copy/1.8.1/myclabs-deep-copy-1.8.1.zip",
-                "reference": "3e01bdad3e18354c3dce54466b7fbe33a9f9f7f8",
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/myclabs/deep-copy/1.9.1/myclabs-deep-copy-1.9.1.zip",
+                "reference": "e6828efaba2c9b79f4499dae1d66ef8bfa7b2b72",
                 "shasum": ""
             },
             "require": {
@@ -301,7 +303,7 @@
                 "object",
                 "object graph"
             ],
-            "time": "2018-06-11T23:09:50+00:00"
+            "time": "2019-04-07T13:18:21+00:00"
         },
         {
             "name": "olcs/coding-standards",
@@ -1695,11 +1697,11 @@
         },
         {
             "name": "squizlabs/php_codesniffer",
-            "version": "3.4.1",
+            "version": "3.4.2",
             "dist": {
                 "type": "zip",
-                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/squizlabs/php_codesniffer/3.4.1/squizlabs-php_codesniffer-3.4.1.zip",
-                "reference": "5b4333b4010625d29580eb4a41f1e53251be6baa",
+                "url": "http://nexus.shd.ci.nonprod.dvsa.aws/repository/Packagist-Proxy/squizlabs/php_codesniffer/3.4.2/squizlabs-php_codesniffer-3.4.2.zip",
+                "reference": "b8a7362af1cc1aadb5bd36c3defc4dda2cf5f0a8",
                 "shasum": ""
             },
             "require": {
@@ -1736,7 +1738,7 @@
                 "phpcs",
                 "standards"
             ],
-            "time": "2019-03-19T03:22:27+00:00"
+            "time": "2019-04-10T23:49:02+00:00"
         },
         {
             "name": "symfony/config",
