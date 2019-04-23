@@ -34,6 +34,7 @@
     },
     "bin": [
         "bin/review",
+        "bin/composer-install-syms",
         "bin/composer-update-syms",
         "bin/release"
     ],
