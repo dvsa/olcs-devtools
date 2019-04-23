@@ -1,0 +1,33 @@
+#!/bin/bash
+
+if [ "$1" != "" ]; then
+    VERSION="$1"
+else
+    echo;
+    echo Please provide the release version to prepare.
+    echo "eg:   prep-release 4.204.1"
+    exit;
+fi
+
+BRANCH=`git rev-parse --abbrev-ref HEAD`
+if [ "$BRANCH" != "master" ]; then
+    git checkout master
+fi
+
+git pull
+git checkout -b release/"$VERSION"
+git update-index --no-assume-unchanged composer.lock
+
+composer update olcs/olcs-common olcs/olcs-transfer olcs/olcs-utils olcs/olcs-auth olcs/olcs-logging cpms/client olcs/olcs-xmltools olcs/companies-house
+
+CHANGED=`git status --porcelain | grep -c "composer.lock"`
+if (( "$CHANGED" > 0 )); then
+    git add composer.lock
+    git commit -m '[AUTO] Updated OLCS dependencies'
+    git push --setup-upstream origin release/"$VERSION"
+else
+    echo "Dependencies already upto date. No action needed"
+fi
+
+# Stop tracking changes for composer.lock
+git update-index --assume-unchanged composer.lock
