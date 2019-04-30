@@ -56,7 +56,6 @@ composer nexus-push "$VERSION"
 
 if [ "$BRANCH" != "$WORKING_BRANCH" ]; then
     git checkout "$WORKING_BRANCH"
-
 fi
 
 [ "$STASHED" == true ] && git stash pop
