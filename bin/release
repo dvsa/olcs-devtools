@@ -36,12 +36,13 @@ else
     exit;
 fi
 
+if [[ `git status --porcelain` ]]; then
+    git stash --all
+    STASHED=true
+fi
+
 WORKING_BRANCH=`git rev-parse --abbrev-ref HEAD`
 if [ "$WORKING_BRANCH" != "$BRANCH" ]; then
-	if [[ `git status --porcelain` ]]; then
-	    git stash --all
-	    STASHED=true
-	fi
     git checkout "$BRANCH"
 fi
 
@@ -55,7 +56,9 @@ composer nexus-push "$VERSION"
 
 if [ "$BRANCH" != "$WORKING_BRANCH" ]; then
     git checkout "$WORKING_BRANCH"
-    [ "$STASHED" == true ] && git stash pop
+
 fi
+
+[ "$STASHED" == true ] && git stash pop
 
 exit 0
