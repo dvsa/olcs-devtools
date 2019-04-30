@@ -49,7 +49,6 @@ git pull
 if [ "$SKIP_TAG" == false ]; then
     git tag -a "$VERSION" -m "$VERSION"
     git push origin "$VERSION"
-    echo "TAG"
 fi
 
 composer nexus-push "$VERSION"
