@@ -36,18 +36,27 @@ else
     exit;
 fi
 
-if [[ `git status --porcelain` ]]; then
-    git stash
-    STASHED=true
+WORKING_BRANCH=`git rev-parse --abbrev-ref HEAD`
+if [ "$WORKING_BRANCH" != "$BRANCH" ]; then
+	if [[ `git status --porcelain` ]]; then
+	    git stash --all
+	    STASHED=true
+	fi
+    git checkout "$BRANCH"
 fi
 
-git checkout "$BRANCH"
 git pull
 if [ "$SKIP_TAG" == false ]; then
     git tag -a "$VERSION" -m "$VERSION"
     git push origin "$VERSION"
+    echo "TAG"
 fi
 
 composer nexus-push "$VERSION"
 
-[ "$STASHED" == true ] && git stash pop
+if [ "$BRANCH" != "$WORKING_BRANCH" ]; then
+    git checkout "$WORKING_BRANCH"
+    [ "$STASHED" == true ] && git stash pop
+fi
+
+exit 0
