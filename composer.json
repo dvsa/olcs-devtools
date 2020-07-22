@@ -31,7 +31,7 @@
         "phpmd/phpmd": "^2.8.2",
         "johnkary/phpunit-speedtrap": "^3.2",
         "mikey179/vfsstream": "~1.4.0",
-        "elendev/nexus-composer-push": "^0.1"
+        "elendev/nexus-composer-push": "^0.2"
     },
     "config": {
         "preferred-install": "dist",
