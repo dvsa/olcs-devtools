@@ -30,7 +30,7 @@
         "phpstan/phpstan-phpunit": "^0.12",
         "phpmd/phpmd": "^2.8.2",
         "johnkary/phpunit-speedtrap": "^3.2",
-        "mikey179/vfsstream": "~1.4.0"
+        "mikey179/vfsstream": "^1.6"
     },
     "config": {
         "preferred-install": "dist",
