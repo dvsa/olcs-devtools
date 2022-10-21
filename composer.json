@@ -29,7 +29,9 @@
         "phpstan/phpstan-phpunit": "^0.12",
         "phpmd/phpmd": "^2.11.1",
         "johnkary/phpunit-speedtrap": "^3.2",
-        "mikey179/vfsstream": "^1.6"
+        "mikey179/vfsstream": "^1.6",
+        "fzaninotto/faker": "^1.9",
+        "elendev/composer-push": "1.0.3"
     },
     "config": {
         "preferred-install": "dist",
