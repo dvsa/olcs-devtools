@@ -93,7 +93,7 @@ do
 		then
 		if [[ ${file: -4} == ".php" ]]
 			then
-			 $PHPCS --severity=$PHPCS_SEVERITY --standard="vendor/dvsa/coding-standards/Profiles/DVSA/CS/ruleset.xml" $file
+			 $PHPCS --severity=$PHPCS_SEVERITY --standard="vendor/dvsa/coding-standards/src/Profiles/DVSA/CS/ruleset.xml" $file
 		fi
 	fi
 done
@@ -110,7 +110,7 @@ do
 		then
 		if [[ ${file: -4} == ".php" ]]
 			then
-			 $PHPMD $file "Devtools\CustomTextRenderer" "vendor/dvsa/coding-standards/Profiles/DVSA/PMD/ruleset.xml"
+			 $PHPMD $file "Devtools\CustomTextRenderer" "vendor/dvsa/coding-standards/src/Profiles/DVSA/PMD/ruleset.xml"
 		fi
 	fi
 done
