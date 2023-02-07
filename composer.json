@@ -19,7 +19,7 @@
         "dms/phpunit-arraysubset-asserts": "^0.3.1",
         "dvsa/coding-standards": "^2.0.0",
         "squizlabs/php_codesniffer": "~3.6.2",
-        "phpunit/phpunit": "9.*",
+        "phpunit/phpunit": "~9.5.0",
         "phpunit/phpcov": "8.*",
         "mockery/mockery": "~1.4.4",
         "olcs/olcs-testhelpers": "~4.206.0",
