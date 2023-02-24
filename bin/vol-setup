@@ -1,10 +1,10 @@
 #!/bin/bash
 
-gitlab_url=git@repo.shd.ci.nonprod.dvsa.aws
+gitlab_url=git@repo.olcs.dev-dvsacloud.uk
 group=olcs
-projects=(companies-house olcs-auth olcs-autoload olcs-backend olcs-ci olcs-coding-standards olcs-common olcs-config olcs-devtools 
-    olcs-elasticsearch olcs-etl olcs-internal olcs-logging olcs-oa olcs-plugins olcs-reporting olcs-selfserve olcs-static 
-    olcs-static-server olcs-template-processor olcs-templates olcs-testhelpers olcs-transfer olcs-txc olcs-utils)
+projects=(olcs-auth olcs-backend olcs-common olcs-companies-house olcs-cpms olcs-devtools olcs-dvla-search
+    olcs-elasticsearch olcs-etl olcs-frontend-deps olcs-internal olcs-laminas olcs-logging olcs-maintenance-page
+    olcs-selfserve olcs-static olcs-testhelpers olcs-transfer olcs-utils olcs-xmltools)
 
 while [ -z "$volDir" ]; do
 	read -e -p "$(tput setaf 6)Where should vol be setup?$(tput sgr0) " volDir
